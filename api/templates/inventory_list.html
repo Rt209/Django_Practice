@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory List</title>
+</head>
+<body>
+    <h1>Inventory List</h1>
+    <!-- 新增按鈕 -->
+    <a href="{% url 'inventory_create' %}">
+        <button>Add New Item</button>
+    </a>
+    <ul>
+        <!-- 顯示所有項目 -->
+        {% for inventory in inventories %}
+            <li>
+                {{ inventory.name }} - {{ inventory.location }}
+                <a href="{% url 'inventory_update' inventory.id %}">Update</a>
+                <a href="{% url 'inventory_delete' inventory.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

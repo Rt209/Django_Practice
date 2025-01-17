@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Stream with Capture</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Live Camera Stream</h1>
+
+    <!-- 串流影像 -->
+    <img id="cameraStream" src="{% url 'video_stream' %}" alt="Live Stream" style="max-width: 100%; border: 1px solid black;">
+
+    <!-- 按鍵 -->
+    <button id="captureButton">Capture Image</button>
+
+    <!-- 顯示處理後的影像 -->
+    <h2>Processed Image</h2>
+    <div id="processedImageContainer">
+        <p>No image processed yet.</p>
+    </div>
+
+    <script>
+        // 按下按鍵執行擷取操作
+        document.getElementById("captureButton").addEventListener("click", function () {
+            $.ajax({
+                url: "{% url 'capture_image' %}",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    // 更新處理後影像區域
+                    document.getElementById("processedImageContainer").innerHTML =
+                        '<img src="' + response.processed_image_url + '" alt="Processed Image" style="max-width: 100%; border: 1px solid black;">';
+                },
+                error: function () {
+                    alert("Error processing the image.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
