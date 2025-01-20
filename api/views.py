@@ -48,7 +48,7 @@ RTSP_URL = os.getenv(RTSP,DEFAULT_RTSP_URL)
 #  e.g. -> value = os.getenv('RTSP_url', 'rtsp://192.168.178.214/') 
 
 camera = cv2.VideoCapture(RTSP_URL)
-
+# camera = cv2.VideoCapture(0)
 def gen_display():
     """
     攝影機視頻流生成器

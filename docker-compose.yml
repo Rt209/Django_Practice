@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   web:
-    build: .   
+    build: . 
     volumes:
       - .static/captured_images:/app/static/captured_images
       # django <-> docker
